@@ -1,0 +1,7 @@
+{
+  "name": "Studiride",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
