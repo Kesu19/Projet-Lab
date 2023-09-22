@@ -1,17 +1,57 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <ion-title>Studiride</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-toolbar>
+  <ion-searchbar></ion-searchbar>
+</ion-toolbar>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+<ion-content class="ion-padding">
+  <ion-content>
+
+    <ion-list>
+      <ion-card *ngFor="let item of items; let index">
+        <ion-card-header>
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <img alt="avatar" src={{avatarUrl}} />
+            </ion-thumbnail>
+            <ion-label> {{item}} </ion-label>
+          </ion-item>
+    
+          <ion-card-title></ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          
+          <ion-button [id]="'present-reserve-alert-' + index">
+            <ion-icon name="card"></ion-icon>
+             Reserver
+          </ion-button>
+          <ion-alert [trigger]="'present-reserve-alert-' + index" header="Êtes vous sûr de vouloir réserver ?"
+            [buttons]="alertButtons"></ion-alert>
+          <ion-button (click)="sendMessage(index)">
+            <ion-icon name="mail"></ion-icon>
+             Message
+          </ion-button>
+          <ion-button (click)="sendMessage(index)">
+            <ion-icon name="map"></ion-icon>
+             Maps
+          </ion-button>
+
+  
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+
+    <ion-infinite-scroll>
+      <ion-infinite-scroll-content loadingText="Please wait..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+      <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ion-content>
 </ion-content>
