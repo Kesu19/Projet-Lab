@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Choisissez un rôle</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-radio-group [(ngModel)]="selectedRole">
+      <ion-item>
+        <ion-label>Conducteur</ion-label>
+        <ion-radio value="conducteur"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Passager</ion-label>
+        <ion-radio value="passager"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">OK</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

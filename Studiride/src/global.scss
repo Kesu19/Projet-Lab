@@ -24,3 +24,15 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+.text-centered {
+	text-align: center; /* Centre le texte horizontalement */
+	justify-content: center !important;
+  }
+
+  .titre-personnalise .alert-title {
+	color: red; /* Changez la couleur du titre ici */
+	font-size: 24px; /* Changez la taille de la police du titre ici */
+	/* Ajoutez d'autres styles personnalisés au besoin */
+	text-align: center; /* Centre le texte horizontalement */
+	justify-content: center !important;
+  }
