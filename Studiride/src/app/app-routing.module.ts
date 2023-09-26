@@ -8,6 +8,10 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),canActivate:[AuthGuard]
+  },
+  {
+    path: 'my-account',
+    loadChildren: () => import('./my-account/my-account.module').then( m => m.MyAccountPageModule)
   }
 ];
 @NgModule({

@@ -14,49 +14,65 @@
 </ion-toolbar>
 
 <ion-content class="ion-padding">
-  <ion-content>
+  <!-- Options de filtrage -->
+  <ion-list>
+    <ion-item>
+      <ion-label>Distance</ion-label>
+      <ion-select [(ngModel)]="selectedDistance">
+        <ion-select-option value="10">Moins de 10 km</ion-select-option>
+        <ion-select-option value="20">Moins de 20 km</ion-select-option>
+        <ion-select-option value="30">Moins de 30 km</ion-select-option>
+        <!-- Ajoutez d'autres options de distance selon vos besoins -->
+      </ion-select>
+    </ion-item>
 
-    <ion-list>
-      <ion-card *ngFor="let item of items; let index">
-        <ion-card-header>
-          <ion-item>
-            <ion-thumbnail slot="start">
-              <img alt="avatar" src={{avatarUrl}} />
-            </ion-thumbnail>
-            <ion-label> {{item}} </ion-label>
-          </ion-item>
-    
-          <ion-card-title></ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          
-          <ion-button [id]="'present-reserve-alert-' + index">
-            <ion-icon name="card"></ion-icon>
-             Reserver
-          </ion-button>
-          <ion-alert [trigger]="'present-reserve-alert-' + index" header="Êtes vous sûr de vouloir réserver ?"
-            [buttons]="alertButtons"></ion-alert>
-          <ion-button (click)="sendMessage(index)">
-            <ion-icon name="mail"></ion-icon>
-             Message
-          </ion-button>
-          <ion-button (click)="sendMessage(index)">
-            <ion-icon name="map"></ion-icon>
-             Maps
-          </ion-button>
-
+    <ion-item>
+      <ion-label>Prix maximum</ion-label>
+      <ion-input type="number" [(ngModel)]="maxPrice"></ion-input>
+    </ion-item>
+  </ion-list>
   
-        </ion-card-content>
-      </ion-card>
-    </ion-list>
 
-    <ion-infinite-scroll>
-      <ion-infinite-scroll-content loadingText="Please wait..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-      <ion-fab-button>
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-  </ion-content>
+  <ion-list>
+    <ion-card *ngFor="let item of items; let index">
+      <ion-card-header>
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img alt="avatar" src={{avatarUrl}} />
+          </ion-thumbnail>
+          <ion-label> {{item}} </ion-label>
+        </ion-item>
+  
+        <ion-card-title></ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        
+        <ion-button [id]="'present-reserve-alert-' + index">
+          <ion-icon name="card"></ion-icon>
+           Reserver
+        </ion-button>
+        <ion-alert [trigger]="'present-reserve-alert-' + index" header="Êtes vous sûr de vouloir réserver ?"
+          [buttons]="alertButtons"></ion-alert>
+        <ion-button (click)="sendMessage(index)">
+          <ion-icon name="mail"></ion-icon>
+           Message
+        </ion-button>
+        <ion-button (click)="sendMessage(index)">
+          <ion-icon name="map"></ion-icon>
+           Maps
+        </ion-button>
+
+
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <ion-infinite-scroll>
+    <ion-infinite-scroll-content loadingText="Please wait..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
