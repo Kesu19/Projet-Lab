@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Studiride</ion-title>
+    <div class="userName">
+      <ion-title>Studiride</ion-title>
+      <ion-title>{{userName}}</ion-title>
+      <ion-button  (click)="desconnect()">Déconnexion</ion-button>
+    </div>
+
   </ion-toolbar>
 </ion-header>
 
