@@ -1,0 +1,50 @@
+
+.account-icon{
+    font-size: 30px; 
+    margin-left: 20px;
+}
+
+.title {
+    font-size: 15px; 
+    font-weight: bold; 
+    color: #555;
+    margin-top: 5px; 
+  }
+  
+
+/* Header Styling */
+ion-toolbar {
+    --ion-background-color: #3880ff;
+    color: white;
+}
+
+/* Card Styling */
+ion-card {
+    margin: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0.2, 0.2, 0.2, 0.5);
+    transition: transform 0.2s ease-in-out;
+}
+
+ion-card:hover {
+    transform: scale(1.02);
+}
+
+ion-card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #3880ff;
+}
+
+/* Input Styling */
+ion-item ion-label {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Button Styling */
+ion-button {
+    margin-top: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+}

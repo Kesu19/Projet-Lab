@@ -6,7 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-  public mapUrl ="https://www.google.fr/maps/preview"
   constructor() {}
-
 }
