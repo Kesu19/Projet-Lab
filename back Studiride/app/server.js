@@ -31,8 +31,11 @@ module.exports = class Server {
    * Routes
    */
   routes()  {
-	new routes.login.Login(this.app)
-	new routes.login.CreateUser(this.app)
+	  new routes.login.Login(this.app)
+	  new routes.login.CreateUser(this.app)
+    new routes.get.GetUser(this.app)
+    
+    
     // If route not exist
     this.app.use((req, res) => {
       res.status(404).json({

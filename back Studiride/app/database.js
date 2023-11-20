@@ -26,7 +26,7 @@ function initDatabase() {
       )
     `);
 
-    // Insérer des données factices dans la table des statuts
+    // // Insérer des données factices dans la table des statuts
     // const insertStatuts = db.prepare("INSERT INTO statuts (nom) VALUES (?)");
     // insertStatuts.run("Passager");
     // insertStatuts.run("Conducteur");
