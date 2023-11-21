@@ -3,7 +3,10 @@
     <div class="userName">
       <ion-title>Studiride</ion-title>
       <ion-title>{{userName}}</ion-title>
-      <ion-button  (click)="desconnect()">Déconnexion</ion-button>
+      <ion-button color="danger" expand="full" (click)="desconnect()">
+        <ion-icon name="power-outline"></ion-icon>
+        
+      </ion-button>
     </div>
 
   </ion-toolbar>

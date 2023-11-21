@@ -5,9 +5,6 @@
   </ion-toolbar>
 </ion-header>
 
-
-
-
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-card>
     <ion-card-header>
@@ -18,7 +15,7 @@
         <div class="title">Username</div>
         <ion-item>
           <ion-input
-            [(ngModel)]="fullName"
+            [(ngModel)]="userName"
             [disabled]="!isEditing"
             [class.editable-input]="isEditing"
             #fullNameInput
@@ -44,7 +41,6 @@
         </ion-item>
       </div>
       
-
     </ion-card-content>
   </ion-card>
 
@@ -81,7 +77,6 @@
       <ion-button expand="full" color="primary">Change Password</ion-button>
     </ion-card-content>
   </ion-card>
-  
 
    <ion-card>
     <ion-card-header>
