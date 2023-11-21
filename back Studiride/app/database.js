@@ -6,13 +6,15 @@ const db = new sqlite3.Database('covoiturage.db');
 function initDatabase() {
   db.serialize(() => {
     // Table des utilisateurs
+    
     db.run(`
       CREATE TABLE IF NOT EXISTS utilisateurs (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         nom TEXT,
         prenom TEXT,
         email TEXT UNIQUE,
-		identifiant TEXT UNIQUE,
+        tel TEXT,
+		    identifiant TEXT UNIQUE,
         mot_de_passe TEXT,
         statuts INTEGER
       )

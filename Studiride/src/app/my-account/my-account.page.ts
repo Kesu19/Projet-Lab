@@ -12,6 +12,7 @@ export class MyAccountPage implements OnInit {
   constructor(private userConnect : UserConnect,private router : Router, private getUserService: GetUserService) {}
   userName = '';
   email = '';
+  tel = '';
   currentPassword: string = '';
   newPassword: string = '';
   confirmPassword: string = '';
@@ -22,6 +23,7 @@ export class MyAccountPage implements OnInit {
   ngOnInit(): void {
     this.userName = this.userConnect.getUtilisateurConnecte().identifiant
     this.email = this.userConnect.getUtilisateurConnecte().email
+    this.tel = this.userConnect.getUtilisateurConnecte().tel
     console.log(this.userName)
   }
   togglePasswordVisibility(field: string) {

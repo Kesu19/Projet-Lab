@@ -10,7 +10,7 @@ export class CreateUserService {
   constructor(private http: HttpClient) { }
 
   // Fonction pour effectuer la requête de connexion
-  createUser(nom: string, prenom: string, email: string, identifiant: string, motDePasse: string, statut: string): Observable<any> {
+  createUser(nom: string, prenom: string, email: string,tel: string, identifiant: string, motDePasse: string, statut: string): Observable<any> {
     const url = 'http://localhost:4000/signup'; // L'URL pour créer un utilisateur
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -19,6 +19,7 @@ export class CreateUserService {
       nom,
       prenom,
       email,
+      tel,
       identifiant,
       motDePasse,
       statut

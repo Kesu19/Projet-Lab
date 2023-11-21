@@ -19,6 +19,7 @@ export class LoginPage implements OnInit {
   nom: string = "";
   prenom: string = "";
   email: string = "";
+  tel: string = "";
   identifiant: string = '';
   motDePasse: string = '';
   statut: string = '';
@@ -88,6 +89,15 @@ export class LoginPage implements OnInit {
           },
         },
         {
+          name: 'phoneNumber',
+          type: 'tel',
+          placeholder: 'Numéro de téléphone',
+          attributes: {
+            required: true, // Champ obligatoire
+          },
+        },
+        
+        {
           name: 'username',
           type: 'text',
           placeholder: 'Nom d\'utilisateur',
@@ -130,16 +140,19 @@ export class LoginPage implements OnInit {
             const username = data.username;
             const password = data.password;
             const confirmPassword = data.confirmPassword;
+            const phoneNumber = data.phoneNumber;
             this.nom  = nom;
             this.prenom = prenom;
             this.email = email;
             this.identifiant = username;
             this.motDePasse = password;
   
+            this.tel = phoneNumber;
             // Expression régulière pour valider une adresse e-mail
             const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            const phoneRegex = /^\d{10}$/;
   
-            if (nom && prenom && email && username && password && confirmPassword && emailRegex.test(email)) {
+            if (nom && prenom && email && username && password && confirmPassword && emailRegex.test(email)&&phoneRegex.test(phoneNumber)) {
               if (password === confirmPassword) {
                 // Les mots de passe correspondent, vous pouvez créer le compte
                 // Appelez ici votre API ou effectuez d'autres opérations de création de compte
@@ -223,7 +236,7 @@ export class LoginPage implements OnInit {
     await accountAlert.present();
   }
   create(){
-    this.createUserService.createUser(this.nom,this.prenom,this.email,this.identifiant,this.motDePasse,this.statut).subscribe((data)=>{
+    this.createUserService.createUser(this.nom,this.prenom,this.email,this.tel, this.identifiant,this.motDePasse,this.statut).subscribe((data)=>{
       this.username = this.identifiant;
       this.password = this.motDePasse;
       this.loginService.login(this.username, this.password).subscribe((data) => {
