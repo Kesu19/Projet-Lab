@@ -6,7 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
+  genrePassagers: string = 'homme'; 
+  filiere: string = '';
+  agePassagers: number = 18; 
+  animauxAutorises: boolean = false;
+  conversationsAutorisees: boolean = true;
+  estFumeur: boolean = false;
+  preferencesMusique: boolean = false;
+  accessibiliteReducedMobility: boolean = false;
 
-  constructor() {}
-
+  enregistrerPreferences() {
+    console.log('Préférences enregistrées !', this.estFumeur, this.genrePassagers, this.agePassagers, this.animauxAutorises, this.conversationsAutorisees);
+  }
 }
