@@ -1,0 +1,17 @@
+{
+    "appId": "io.ionic.starter",
+    "appName": "Studiride",
+    "bundledWebRuntime": false,
+    "npmClient": "npm",
+    "webDir": "www",
+    "plugins": {
+      "@capacitor/app": {},
+      "@capacitor/camera": {},
+      "@capacitor/filesystem": {},
+      "@capacitor/haptics": {},
+      "@capacitor/keyboard": {},
+      "@capacitor/preferences": {},
+      "@capacitor/status-bar": {}
+    }
+  }
+  

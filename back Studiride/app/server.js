@@ -31,8 +31,11 @@ module.exports = class Server {
    * Routes
    */
   routes()  {
-	new routes.login.Login(this.app)
-	new routes.login.CreateUser(this.app)
+	  new routes.login.Login(this.app)
+	  new routes.login.CreateUser(this.app)
+    new routes.get.GetUser(this.app)
+    
+    
     // If route not exist
     this.app.use((req, res) => {
       res.status(404).json({
@@ -58,7 +61,7 @@ module.exports = class Server {
       this.middleware()
       this.routes()
       const port = process.env.PORT || 4000
-      this.app.listen(port)
+      this.app.listen(port,'exarilopi')
       console.log(`Your port is ${port}`)
     } catch (e) {
       console.error(`[ERROR] Server -> ${e}`)

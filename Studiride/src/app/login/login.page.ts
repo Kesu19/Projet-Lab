@@ -19,6 +19,7 @@ export class LoginPage implements OnInit {
   nom: string = "";
   prenom: string = "";
   email: string = "";
+  tel: string = "";
   identifiant: string = '';
   motDePasse: string = '';
   statut: string = '';
@@ -26,17 +27,20 @@ export class LoginPage implements OnInit {
   public alertButtons = ['OK'];
   isAlertOpen = false;
   login() {
-    this.loginService.login(this.username, this.password).subscribe((data) => {
-      if(data.id){
-        this.userConnect.connecter(data)
-        this.onLoginSuccess()
-      }
-      // Traitez la réponse du serveur ici
-    }, (error) => {
-      this.presentAlert()
-      // this.isAlertOpen = true 
-    });
+    this.loginService.login(this.username, this.password)
+      .then((data: any) => {
+        if (data.id) {
+          this.userConnect.connecter(data);
+          this.onLoginSuccess();
+        } else {
+          this.presentAlert('Identifiant ou mot de passe incorrect.');
+        }
+      })
+      .catch((error: any) => {
+        this.presentAlert(error.message);
+      });
   }
+  
 
   ngOnInit() {
   }
@@ -46,11 +50,11 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/tabs']);
   }
 
-  async presentAlert() {
+  async presentAlert(myerror:string) {
     const alert = await this.alertController.create({
       cssClass: ['text-centered','titre-personnalise'], 
       header: 'Erreur',
-      message: 'Identifiant ou mot de passe incorrect.',
+      message: 'Identifiant ou mot de passe incorrect.'+myerror,
       buttons: ['OK'],
     });
 
@@ -64,7 +68,7 @@ export class LoginPage implements OnInit {
           name: 'nom',
           type: 'text',
           placeholder: 'Nom',
-          value: '', // Valeur initiale vide
+          value: this.nom, // Valeur initiale vide
           attributes: {
             required: true, // Champ obligatoire
           },
@@ -73,7 +77,7 @@ export class LoginPage implements OnInit {
           name: 'prenom',
           type: 'text',
           placeholder: 'Prénom',
-          value: '', // Valeur initiale vide
+          value: this.prenom, // Valeur initiale vide
           attributes: {
             required: true, // Champ obligatoire
           },
@@ -82,16 +86,25 @@ export class LoginPage implements OnInit {
           name: 'email',
           type: 'email',
           placeholder: 'Email',
-          value: '', // Valeur initiale vide
+          value: this.email, // Valeur initiale vide
           attributes: {
             required: true, // Champ obligatoire
           },
         },
         {
+          name: 'phoneNumber',
+          type: 'tel',
+          placeholder: 'Numéro de téléphone',
+          attributes: {
+            required: true, // Champ obligatoire
+          },
+        },
+        
+        {
           name: 'username',
           type: 'text',
           placeholder: 'Nom d\'utilisateur',
-          value: '', // Valeur initiale vide
+          value: this.identifiant, // Valeur initiale vide
           attributes: {
             required: true, // Champ obligatoire
           },
@@ -100,7 +113,7 @@ export class LoginPage implements OnInit {
           name: 'password',
           type: 'password',
           placeholder: 'Mot de passe',
-          value: '', // Valeur initiale vide
+          value: this.motDePasse, // Valeur initiale vide
           attributes: {
             required: true, // Champ obligatoire
           },
@@ -130,18 +143,21 @@ export class LoginPage implements OnInit {
             const username = data.username;
             const password = data.password;
             const confirmPassword = data.confirmPassword;
+            const phoneNumber = data.phoneNumber;
+            this.nom  = nom;
+            this.prenom = prenom;
+            this.email = email;
+            this.identifiant = username;
+            this.motDePasse = password;
   
+            this.tel = phoneNumber;
             // Expression régulière pour valider une adresse e-mail
             const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            const phoneRegex = /^\d{10}$/;
   
-            if (nom && prenom && email && username && password && confirmPassword && emailRegex.test(email)) {
+            if (nom && prenom && email && username && password && confirmPassword && emailRegex.test(email)&&phoneRegex.test(phoneNumber)) {
               if (password === confirmPassword) {
                 // Les mots de passe correspondent, vous pouvez créer le compte
-                this.nom  = nom;
-                this.prenom = prenom;
-                this.email = email;
-                this.identifiant = username;
-                this.motDePasse = password;
                 // Appelez ici votre API ou effectuez d'autres opérations de création de compte
   
                 // Maintenant, affichez une nouvelle alerte pour demander si l'utilisateur est conducteur ou passager
@@ -152,13 +168,13 @@ export class LoginPage implements OnInit {
                       name: 'role',
                       type: 'radio',
                       label: 'Conducteur',
-                      value: 'conducteur',
+                      value: '1',
                     },
                     {
                       name: 'role',
                       type: 'radio',
                       label: 'Passager',
-                      value: 'passager',
+                      value: '2',
                     },
                   ],
                   buttons: [
@@ -222,25 +238,28 @@ export class LoginPage implements OnInit {
   
     await accountAlert.present();
   }
-  create(){
-    this.createUserService.createUser(this.nom,this.prenom,this.email,this.identifiant,this.motDePasse,this.statut).subscribe((data)=>{
-      this.username = this.identifiant;
-      this.password = this.motDePasse;
-      this.loginService.login(this.username, this.password).subscribe((data) => {
-        if(data.id){
-          this.userConnect.connecter(data)
-          this.onLoginSuccess()
+  create() {
+    this.createUserService.createUser(this.nom, this.prenom, this.email, this.tel, this.identifiant, this.motDePasse, this.statut)
+      .then(() => {
+        this.username = this.identifiant;
+        this.password = this.motDePasse;
+        return this.loginService.login(this.username, this.password);
+      })
+      .then((data: any) => {
+        if (data.id) {
+          this.userConnect.connecter(data);
+          this.onLoginSuccess();
+        } else {
+          this.presentAlert('Identifiant ou mot de passe incorrect.');
         }
-        // Traitez la réponse du serveur ici
-      }, (error) => {
-        this.presentAlert()
-        // this.isAlertOpen = true 
-      }); 
-    }, (error) => {
-      this.errorCreate(error)
-      // this.isAlertOpen = true 
-    })
+      })
+      .catch((error: any) => {
+        this.errorCreate(error);
+        this.presentAlert(error.message);
+      });
   }
+  
+  
 
   async errorCreate(erreur:any){
     const incompleteAlert = await this.alertController.create({

@@ -1,29 +1,36 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Plugins } from '@capacitor/core';
+
+const { CapacitorHttp } = Plugins;
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class CreateUserService {
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
-  // Fonction pour effectuer la requête de connexion
-  createUser(nom: string, prenom: string, email: string, identifiant: string, motDePasse: string, statut: string): Observable<any> {
-    const url = 'http://localhost:4000/signup'; // L'URL pour créer un utilisateur
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  async createUser(nom: string, prenom: string, email: string, tel: string, identifiant: string, motDePasse: string, statut: string): Promise<any> {
+    const url = 'http://192.168.40.218:4000/signup'; 
+    const headers = {
+      'Content-Type': 'application/json'
+    };
 
-    // Créez un objet contenant les données de l'utilisateur à envoyer dans la requête POST
     const userData = {
       nom,
       prenom,
       email,
+      tel,
       identifiant,
       motDePasse,
       statut
     };
 
-    return this.http.post(url, userData, { headers });
+    const response = await CapacitorHttp['post']({
+      url: url,
+      headers: headers,
+      data: userData
+    });
+
+    return response.data;
   }
 }
