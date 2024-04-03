@@ -16,7 +16,9 @@ function initDatabase() {
         tel TEXT,
 		    identifiant TEXT UNIQUE,
         mot_de_passe TEXT,
-        statuts INTEGER
+        statuts INTEGER,
+        longitude INTEGER,
+        latitude INTEGER
       )
     `);
 

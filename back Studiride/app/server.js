@@ -61,7 +61,7 @@ module.exports = class Server {
       this.middleware()
       this.routes()
       const port = process.env.PORT || 4000
-      this.app.listen(port,'exarilopi')
+      this.app.listen(port)
       console.log(`Your port is ${port}`)
     } catch (e) {
       console.error(`[ERROR] Server -> ${e}`)

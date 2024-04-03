@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Plugins } from '@capacitor/core';
+import { environment } from 'src/environments/environment';
 
 const { CapacitorHttp } = Plugins;
 
@@ -10,7 +11,7 @@ export class GetUserService {
   constructor() { }
 
   async getAllUser(statut: number): Promise<any> {
-    const url = 'http://192.168.40.218:4000/getUser?statuts=' + statut;
+    const url = environment.apiUrl + 'getUser?statuts=' + statut;
     
     const response = await CapacitorHttp['get']({ 
       url: url,

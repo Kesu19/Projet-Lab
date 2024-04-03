@@ -14,9 +14,9 @@ module.exports = class CreateUser {
     async middleware() {
 		this.app.post('/signup', async (req, res) => {
 			try {
-				const { nom, prenom, email, tel,identifiant, motDePasse, statut } = req.body;
+				const { nom, prenom, email, tel,identifiant, motDePasse, statut, longitude, latitude } = req.body;
 		
-				if (!nom || !prenom || !email || !tel ||!identifiant || !motDePasse || !statut) {
+				if (!nom || !prenom || !email || !tel ||!identifiant || !motDePasse || !statut || !longitude || !latitude) {
 					return res.status(400).json({ message: "Tous les champs sont obligatoires" });
 				}
 		
@@ -32,7 +32,7 @@ module.exports = class CreateUser {
 					}
 		
 					// Ajoutez un nouvel utilisateur dans la base de données en utilisant le contrôleur
-					createUser(nom, prenom, email, tel,identifiant, motDePasse, statut, (err, userId) => {
+					createUser(nom, prenom, email, tel,identifiant, motDePasse, statut, longitude, latitude, (err, userId) => {
 						if (err) {
 							console.error(err);
 							return res.status(500).json({ message: "Erreur lors de la création de l'utilisateur." });
@@ -56,10 +56,10 @@ module.exports = class CreateUser {
 }
 
 
-function createUser(nom, prenom, email,tel, identifiant, motDePasse, statut, callback) {
+function createUser(nom, prenom, email,tel, identifiant, motDePasse, statut, longitude, latitude, callback) {
     db.run(
-        'INSERT INTO utilisateurs (nom, prenom, email, tel, identifiant, mot_de_passe, statuts) VALUES (?, ?, ?, ?, ?, ?,?)',
-        [nom, prenom, email, tel, identifiant, motDePasse, statut],
+        'INSERT INTO utilisateurs (nom, prenom, email, tel, identifiant, mot_de_passe, statuts, longitude, latitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [nom, prenom, email, tel, identifiant, motDePasse, statut, longitude, latitude],
         function (err) {
             if (err) {
                 console.error('Erreur lors de la création de l\'utilisateur :', err.message);

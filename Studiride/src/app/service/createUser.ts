@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Plugins } from '@capacitor/core';
+import { environment } from 'src/environments/environment';
 
 const { CapacitorHttp } = Plugins;
 
@@ -9,8 +10,8 @@ const { CapacitorHttp } = Plugins;
 export class CreateUserService {
   constructor() { }
 
-  async createUser(nom: string, prenom: string, email: string, tel: string, identifiant: string, motDePasse: string, statut: string): Promise<any> {
-    const url = 'http://192.168.40.218:4000/signup'; 
+  async createUser(nom: string, prenom: string, email: string, tel: string, identifiant: string, motDePasse: string, statut: string, longitude: number, latitude: number): Promise<any> {
+    const url = environment.apiUrl + 'signup';
     const headers = {
       'Content-Type': 'application/json'
     };
@@ -22,7 +23,9 @@ export class CreateUserService {
       tel,
       identifiant,
       motDePasse,
-      statut
+      statut,
+      longitude,
+      latitude
     };
 
     const response = await CapacitorHttp['post']({
