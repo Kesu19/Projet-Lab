@@ -12,6 +12,10 @@ const routes: Routes = [
   {
     path: 'my-account',
     loadChildren: () => import('./my-account/my-account.module').then( m => m.MyAccountPageModule)
+  },  
+  {
+    path: 'tabs/tab-map',
+    loadChildren: () => import('./tab2/tab2.module').then( m => m.Tab2PageModule)
   }
 ];
 @NgModule({

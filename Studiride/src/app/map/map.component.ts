@@ -1,52 +1,75 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import * as L from 'leaflet';
 import { UserConnect } from '../service/userConnect';
+import { UserModal } from '../models/UserModel';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements OnInit {
   private map!: L.Map;
+  private mapInitialized = false;
   user = '';
   latitude = 0;
   longitude = 0;
-  constructor(private userConnect : UserConnect) {}
+  @Input() utilisateur: UserModal | undefined;
+
+  constructor(private userConnect: UserConnect, private elementRef: ElementRef) {}
 
   ngOnInit() {
     this.user = this.userConnect.getUtilisateurConnecte();
-    this.latitude = this.userConnect.getUtilisateurConnecte().latitude
-    this.longitude = this.userConnect.getUtilisateurConnecte().longitude
+    this.latitude = this.userConnect.getUtilisateurConnecte().latitude;
+    this.longitude = this.userConnect.getUtilisateurConnecte().longitude;
+    this.addAvatarMarker();
   }
 
-  ngAfterViewInit(): void {
-    this.initMap();
+  ngAfterViewInit() {
+    if (!this.mapInitialized) {
+      this.initMap();
+    }
   }
 
   private initMap(): void {
-    this.map = L.map('map').setView([this.latitude, this.longitude], 13);
+    this.map = L.map(this.elementRef.nativeElement.querySelector('.map-container')).setView([this.latitude, this.longitude], 13);
+    this.mapInitialized = true;
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.map);
 
-    // Remplacez les coordonnées [latitude, longitude] par les coordonnées de votre maison
     const houseIcon = L.icon({
+      iconUrl: '../../assets/icon/maison.png',
+      iconSize: [50, 50],
+    });
 
-      iconUrl: '../../assets/icon/maison.png', // Chemin vers votre icône personnalisée
-      iconSize: [25, 41], // Taille de l'icône [largeur, hauteur]
-      iconAnchor: [12, 41], // Position de l'ancre de l'icône [horizontal, vertical]
-      popupAnchor: [1, -34] // Position de la popup [horizontal, vertical] par rapport à l'ancre de l'icône
+    const avatarIcon = L.icon({
+      iconUrl: "https://www.w3schools.com/howto/img_avatar.png",
+      iconSize: [45, 45],
     });
 
     const houseMarker = L.marker([this.latitude, this.longitude], { icon: houseIcon }).addTo(this.map);
+    houseMarker.bindPopup("<b>Votre Maison</b>");
 
-    houseMarker.bindPopup("<b>Votre Maison</b>").openPopup();
+    if (this.utilisateur) {
+      L.marker([this.utilisateur.latitude, this.utilisateur.longitude], { icon: avatarIcon }).addTo(this.map)
+    }
 
-    // Appeler invalidateSize après un délai pour s'assurer que le modal s'est affiché correctement
     setTimeout(() => {
       this.map.invalidateSize();
-    }, 500); // Vous pouvez ajuster la durée en fonction de vos besoins
+    }, 500);
+  }
+  private addAvatarMarker(): void {
+    if (this.mapInitialized && this.utilisateur) {
+      const avatarIcon = L.icon({
+        iconUrl: "https://www.w3schools.com/howto/img_avatar.png",
+        iconSize: [45, 45],
+      });
+      L.marker([this.utilisateur.latitude, this.utilisateur.longitude], { icon: avatarIcon }).addTo(this.map);
+      setTimeout(() => {
+        this.map.invalidateSize();
+      }, 500);
+    }
   }
 }

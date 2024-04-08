@@ -10,30 +10,42 @@
     </div>
 
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-title>Filtres</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="danger" expand="full" (click)="deletFilter()">
+        <ion-icon name="close-outline"></ion-icon>       
+      </ion-button>
+      <ion-button (click)="toggleFilters()">
+        <ion-icon name="filter-outline"></ion-icon> <!-- Icône de filtre -->
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
-<ion-toolbar>
-  <ion-searchbar></ion-searchbar>
-</ion-toolbar>
+
 
 <ion-content class="ion-padding">
   <!-- Options de filtrage -->
-  <ion-list>
-    <ion-item>
-      <ion-label>Distance</ion-label>
-      <ion-select [(ngModel)]="selectedDistance">
-        <ion-select-option value="10">Moins de 10 km</ion-select-option>
-        <ion-select-option value="20">Moins de 20 km</ion-select-option>
-        <ion-select-option value="30">Moins de 30 km</ion-select-option>
-        <!-- Ajoutez d'autres options de distance selon vos besoins -->
-      </ion-select>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Prix maximum</ion-label>
-      <ion-input type="number" [(ngModel)]="maxPrice"></ion-input>
-    </ion-item>
-  </ion-list>
+    <ion-list *ngIf="showFilters"> <!-- Afficher la liste des filtres seulement si showFilters est vrai -->
+      <ion-item>
+        <ion-label>Distance</ion-label>
+        <ion-select [(ngModel)]="selectedDistance" (ionChange)="onDistanceChange()">
+          <ion-select-option value="10">Moins de 10 km</ion-select-option>
+          <ion-select-option value="20">Moins de 20 km</ion-select-option>
+          <ion-select-option value="30">Moins de 30 km</ion-select-option>
+          <!-- Ajoutez d'autres options de distance selon vos besoins -->
+        </ion-select>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Prix maximum</ion-label>
+        <ion-input type="number" [(ngModel)]="maxPrice" (ionChange)="onPrixChange()"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-toolbar>
+      <ion-searchbar></ion-searchbar>
+    </ion-toolbar>
   
 
   <ion-list>
@@ -43,7 +55,7 @@
           <ion-thumbnail slot="start">
             <img alt="avatar" src={{avatarUrl}} />
           </ion-thumbnail>
-          <ion-label> {{item}} </ion-label>
+          <ion-label> {{item.identifiant}} </ion-label>
         </ion-item>
   
         <ion-card-title></ion-card-title>
@@ -56,11 +68,11 @@
         </ion-button>
         <ion-alert [trigger]="'present-reserve-alert-' + index" header="Êtes vous sûr de vouloir réserver ?"
           [buttons]="alertButtons"></ion-alert>
-        <ion-button (click)="sendMessage(index)">
+        <ion-button (click)="sendMessage()">
           <ion-icon name="mail"></ion-icon>
            Message
         </ion-button>
-        <ion-button (click)="sendMessage(index)">
+        <ion-button (click)="checkInmap(item)">
           <ion-icon name="map"></ion-icon>
            Maps
         </ion-button>

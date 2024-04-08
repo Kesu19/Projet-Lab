@@ -1,11 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Carte de covoiturage
-    </ion-title>
+    <div class="userName">
+      <ion-title>
+        Carte de covoiturage
+      </ion-title>
+      <ion-button color="danger" expand="full" (click)="fermeCarte()">
+        <ion-icon name="close-outline"></ion-icon>
+        
+      </ion-button>
+    </div>
+
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
-  <app-map></app-map>
+  <app-map [utilisateur]="utilisateur"></app-map>
 </ion-content>

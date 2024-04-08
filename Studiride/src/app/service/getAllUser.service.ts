@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { environment } from 'src/environments/environment';
+import { UserModal } from '../models/UserModel';
 
 const { CapacitorHttp } = Plugins;
 
@@ -19,7 +20,9 @@ export class GetUserService {
         'Content-Type': 'application/json'
       }
     });
-    
-    return response.data;
+
+      const users: UserModal[] = response.data.map((user: any)=> UserModal.deserialize(user));
+
+    return users;
   }
 }

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { UserModal } from '../models/UserModel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -6,5 +9,15 @@ import { Component } from '@angular/core';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-  constructor() {}
+  utilisateur: UserModal | undefined
+  constructor(private route: ActivatedRoute, private router: Router) {}
+
+  ngOnInit() {
+    this.utilisateur = history.state.utilisateur;
+  }
+
+  fermeCarte(){
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
+  
 }
