@@ -11,7 +11,7 @@ import { UserModal } from '../models/UserModel';
 })
 export class Tab1Page implements OnInit {
 
-  selectedDistance: number = 6000;
+  selectedDistance: number = 300;
   maxPrice: number | undefined;
   showFilters: boolean = false;
   radius: number = 10;
@@ -50,18 +50,22 @@ export class Tab1Page implements OnInit {
       });
   }
 
-  onDistanceChange() {
-    this.items = this.items.filter(user => {
-      const distance = this.calculateDistance(user["latitude"], user["longitude"], this.userConnect.getUtilisateurConnecte().latitude,this.userConnect.getUtilisateurConnecte().longitude);
-      return distance <= this.selectedDistance;
+  onDistanceChange(ev: Event) {
+    this.selectedDistance = parseInt((event as CustomEvent).detail.value)
+    this.getUserService.getAllUser(this.userConnect.getUtilisateurConnecte().statuts)
+    .then((data: UserModal[]) => {
+      this.items = []
+      for (const user of data) {
+        if(this.calculateDistance(user["latitude"], user["longitude"], this.userConnect.getUtilisateurConnecte().latitude,this.userConnect.getUtilisateurConnecte().longitude)<= this.selectedDistance){
+          this.items.push(user);
+        }
+      }
+    })
+    .catch((error: any) => {
+      console.error('Une erreur est survenue lors de la récupération des utilisateurs : ', error);
     });
   }
 
-  onPrixChange() {
-    console.log("Le prix sélectionnée a changé :", this.maxPrice);
-  }
-  
-  filteredItems: String[]=["Covoite 1", "Covoite 2"];
 
 
   sendMessage() {
@@ -95,7 +99,7 @@ export class Tab1Page implements OnInit {
 
   deletFilter(){
     this.maxPrice = undefined;
-    this.selectedDistance = 6000
+    this.selectedDistance = 300
     this.items = []
     this.getUserService.getAllUser(this.userConnect.getUtilisateurConnecte().statuts)
       .then((data: UserModal[]) => {
@@ -110,6 +114,6 @@ export class Tab1Page implements OnInit {
   }
 
   checkInmap(userInfoMap: UserModal){
-    this.router.navigate(['/tabs/tab-map'], { state: { utilisateur: userInfoMap } });
+    this.router.navigate(['/tab-map'], { state: { utilisateur: userInfoMap } });
   }
 }

@@ -17,7 +17,9 @@ export class Tab2Page {
   }
 
   fermeCarte(){
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate(['/tabs'], { relativeTo: this.route });
   }
-  
+  navigateTab2() {
+    this.router.navigate(['/tab-map']);
+  }
 }

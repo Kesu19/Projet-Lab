@@ -1,4 +1,43 @@
 .userName{
 	display: flex;
 	justify-content: space-between;
+	font-family: 'Pacifico', cursive;
+	background-color: #00ffdd !important;
+	height: 56px;
+	box-shadow: 0px 5px 20px #00ffdd;
+}
+.header{
+	border-color: #00ffdd !important;
+	box-shadow: 0px 5px 20px #00ffdd;
+  }
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Marker+Felt&display=swap');
+
+/* Scoped components require higher specificity to customize */
+ion-range {
+	--bar-background: #d3fff9;
+	--bar-background-active: #00ffdd;
+	--bar-height: 8px;
+	--bar-border-radius: 8px;
+	--knob-background: #00e0c2;
+	--knob-size: 20px;
+	--pin-background: #00e0c2;
+	--pin-color: #00e0c2;
+  }
+.filter{
+	display: flex;
+    flex-direction: column; /* Met les boutons sur différentes lignes */
+	width: 100%;
+	align-content: center;
+}
+.labelBar{
+	font-family: 'Patrick Hand', cursive;
+	font-size: 30px;
+	color: #0d6359;
+	margin-left: 2%;
+}
+.bar{
+
+	margin-right: 5%;
 }
