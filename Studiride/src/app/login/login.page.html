@@ -1,3 +1,6 @@
+
+
+
 <ion-header class="header">
   <ion-toolbar  class="header">
     <ion-title class="labelTitre">
@@ -6,16 +9,18 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="champSaisie">
-  <div class="divChamp">
+<ion-content class="champSaisie page-container">
+  <div class="champSaisie">
+  <div class="divChamp ">
     <ion-input class="input-field custom custom-color" [(ngModel)]="username" type="text" label="Nom d'utilisateur" label-placement="floating" fill="outline" placeholder="Entrée votre nom d'utilisateur"  type="text"></ion-input>
 
     <ion-input class="input-field custom custom-color" [(ngModel)]="password" color="buttonbleu" label="Mot de passe" label-placement="floating" fill="outline" placeholder="Entrée votre mot de passe"  type="password"></ion-input>
+    <img class="imagesCovoite"  src="../../assets/icon/imagesCovoite.png" >
 </div>
 
   <div class="button-container"> <!-- Utilisez la classe ion-text-center pour centrer les boutons -->
     <ion-button expand="full" (click)="login()" class="buttonConnexion custom-color" color="buttonbleu"><a class="lableButtonColor">Connexion</a> </ion-button>
     <ion-button expand="full" (click)="createAccount()" class="buttonConnexion custom-color" color="buttonbleu"><a class="lableButtonColor">Créer un compte</a></ion-button>
   </div>
-
+</div>
 </ion-content>

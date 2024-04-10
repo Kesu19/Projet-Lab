@@ -12,8 +12,6 @@
   </ion-toolbar>
 </ion-header>
 
-
-
 <ion-content class="ion-padding">
   <!-- Options de filtrage -->
 
@@ -45,35 +43,43 @@
 
   <ion-list>
     <ion-card *ngFor="let item of items; let index">
-      <ion-card-header>
-        <ion-item>
-          <ion-thumbnail slot="start">
-            <img alt="avatar" src={{avatarUrl}} />
-          </ion-thumbnail>
-          <ion-label> {{item.identifiant}} </ion-label>
-        </ion-item>
+      <div class="ProfileCovoite">
+        <ion-card-header>
+          <div class="covoiteProfil">
+          <ion-item lines="none" class="covoiteProfil">
+            <div class="profil">
+              <ion-thumbnail slot="start" class="">
+                <img alt="avatar" src={{avatarUrl}} />
+              </ion-thumbnail>
+              <ion-label class="labelProfil"> {{item.identifiant}} </ion-label>
+            </div>
 
-        <ion-card-title></ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
+          </ion-item>
+          </div>
 
-        <ion-button [id]="'present-reserve-alert-' + index">
-          <ion-icon name="card"></ion-icon>
-          Reserver
-        </ion-button>
-        <ion-alert [trigger]="'present-reserve-alert-' + index" header="Êtes vous sûr de vouloir réserver ?"
-          [buttons]="alertButtons"></ion-alert>
-        <ion-button (click)="sendMessage()">
-          <ion-icon name="mail"></ion-icon>
-          Message
-        </ion-button>
-        <ion-button (click)="checkInmap(item)">
-          <ion-icon name="map"></ion-icon>
-          Maps
-        </ion-button>
+          <ion-card-title></ion-card-title>
+        </ion-card-header>
 
+        <ion-card-content>
+          <div class="button-container">
+            <ion-button class="buttonConnexion custom-color" color="buttonbleu" [id]="'present-reserve-alert-' + index">
+              <ion-icon class="icon" name="card"></ion-icon>
+              Reserver
+            </ion-button>
+            <ion-alert [trigger]="'present-reserve-alert-' + index" header="Êtes vous sûr de vouloir réserver ?"
+              [buttons]="alertButtons"></ion-alert>
+            <ion-button class="buttonConnexion custom-color" color="buttonbleu" (click)="sendMessage()">
+              <ion-icon class="icon" name="mail"></ion-icon>
+              Message
+            </ion-button>
+            <ion-button class="buttonConnexion custom-color" color="buttonbleu" (click)="checkInmap(item)">
+              <ion-icon class="icon" name="map"></ion-icon>
+              Maps
+            </ion-button>
+          </div>
 
-      </ion-card-content>
+        </ion-card-content>
+      </div>
     </ion-card>
   </ion-list>
 

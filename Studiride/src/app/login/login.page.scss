@@ -100,3 +100,13 @@ ion-input.custom {
 ion-select {
     color: #f00 !important; //placeholder color
 }
+
+.imagesCovoite{
+  position: absolute;
+  top: 25%;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 10%;
+  height: 400px;
+  width: 400px;
+}
