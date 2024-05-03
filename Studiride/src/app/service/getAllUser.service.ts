@@ -1,17 +1,24 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Plugins } from '@capacitor/core';
+
+const { CapacitorHttp } = Plugins;
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class GetUserService {
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
-  // Fonction pour effectuer la requête de connexion
-  getAllUser(statut: number): Observable<any> {
-    const url = 'http://localhost:4000/getUser?statuts=' + statut;
-    return this.http.get(url);
+  async getAllUser(statut: number): Promise<any> {
+    const url = 'http://192.168.40.218:4000/getUser?statuts=' + statut;
+    
+    const response = await CapacitorHttp['get']({ 
+      url: url,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    return response.data;
   }
 }

@@ -70,23 +70,21 @@ export class MyAccountPage implements OnInit {
           text: 'Change',
           handler: (data) => {
             if (data.newPassword !== data.confirmPassword) {
-              // The new password and the confirmation do not match, show an error message
-              console.log('The new password and the confirmation do not match');
-              return false; // Keep the alert dialog open
+              console.log('Le nouveau mot de passe et la confirmation ne correspondent pas');
+              return Promise.resolve(false); 
             }
           
-            // Call the changePassword method here
-            this.userConnect.changePassword(this.userName, data.newPassword).subscribe(
-              response => {
-                this.presentToast('Password changed successfully');
-              },
-              error => {
-                this.presentToast('Failed to change password');
-              }
-            );
-          
-            return true; // Close the alert dialog
+            return this.userConnect.changePassword(this.userName, data.newPassword)
+              .then(() => {
+                this.presentToast('Mot de passe modifié avec succès');
+                return Promise.resolve(true); 
+              })
+              .catch((error: any) => {
+                this.presentToast('Échec de la modification du mot de passe');
+                return Promise.resolve(true); 
+              });
           },
+          
         },
       ],
     });

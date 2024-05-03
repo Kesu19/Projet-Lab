@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Plugins } from '@capacitor/core';
+
+const { CapacitorHttp } = Plugins;
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 export class UserConnect {
   private utilisateurConnecte: any = null;
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   // Connecter l'utilisateur
   connecter(utilisateur: any) {
@@ -24,11 +25,20 @@ export class UserConnect {
   getUtilisateurConnecte() {
     return this.utilisateurConnecte;
   }
-  changePassword(identifiant: string, newPassword: string): Observable<any> {
-    const url = 'http://localhost:4000/user/' + identifiant;
-    console.log(url);
+
+  async changePassword(identifiant: string, newPassword: string): Promise<any> {
+    const url = 'http://192.168.40.218:4000/user/' + identifiant;
     const body = { newpassword: newPassword };
-  
-    return this.http.put(url, body);
+
+    // Utilisation de la méthode put pour effectuer une requête PUT
+    const response = await CapacitorHttp['put']({
+      url: url,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: body
+    });
+
+    return response.data;
   }
 }

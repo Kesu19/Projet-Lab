@@ -27,17 +27,20 @@ export class LoginPage implements OnInit {
   public alertButtons = ['OK'];
   isAlertOpen = false;
   login() {
-    this.loginService.login(this.username, this.password).subscribe((data) => {
-      if(data.id){
-        this.userConnect.connecter(data)
-        this.onLoginSuccess()
-      }
-      // Traitez la réponse du serveur ici
-    }, (error) => {
-      this.presentAlert()
-      // this.isAlertOpen = true 
-    });
+    this.loginService.login(this.username, this.password)
+      .then((data: any) => {
+        if (data.id) {
+          this.userConnect.connecter(data);
+          this.onLoginSuccess();
+        } else {
+          this.presentAlert('Identifiant ou mot de passe incorrect.');
+        }
+      })
+      .catch((error: any) => {
+        this.presentAlert(error.message);
+      });
   }
+  
 
   ngOnInit() {
   }
@@ -47,11 +50,11 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/tabs']);
   }
 
-  async presentAlert() {
+  async presentAlert(myerror:string) {
     const alert = await this.alertController.create({
       cssClass: ['text-centered','titre-personnalise'], 
       header: 'Erreur',
-      message: 'Identifiant ou mot de passe incorrect.',
+      message: 'Identifiant ou mot de passe incorrect.'+myerror,
       buttons: ['OK'],
     });
 
@@ -235,25 +238,28 @@ export class LoginPage implements OnInit {
   
     await accountAlert.present();
   }
-  create(){
-    this.createUserService.createUser(this.nom,this.prenom,this.email,this.tel, this.identifiant,this.motDePasse,this.statut).subscribe((data)=>{
-      this.username = this.identifiant;
-      this.password = this.motDePasse;
-      this.loginService.login(this.username, this.password).subscribe((data) => {
-        if(data.id){
-          this.userConnect.connecter(data)
-          this.onLoginSuccess()
+  create() {
+    this.createUserService.createUser(this.nom, this.prenom, this.email, this.tel, this.identifiant, this.motDePasse, this.statut)
+      .then(() => {
+        this.username = this.identifiant;
+        this.password = this.motDePasse;
+        return this.loginService.login(this.username, this.password);
+      })
+      .then((data: any) => {
+        if (data.id) {
+          this.userConnect.connecter(data);
+          this.onLoginSuccess();
+        } else {
+          this.presentAlert('Identifiant ou mot de passe incorrect.');
         }
-        // Traitez la réponse du serveur ici
-      }, (error) => {
-        this.presentAlert()
-        // this.isAlertOpen = true 
-      }); 
-    }, (error) => {
-      this.errorCreate(error)
-      // this.isAlertOpen = true 
-    })
+      })
+      .catch((error: any) => {
+        this.errorCreate(error);
+        this.presentAlert(error.message);
+      });
   }
+  
+  
 
   async errorCreate(erreur:any){
     const incompleteAlert = await this.alertController.create({
