@@ -34,7 +34,9 @@ module.exports = class Server {
 	  new routes.login.Login(this.app)
 	  new routes.login.CreateUser(this.app)
     new routes.get.GetUser(this.app)
-    
+    new routes.conversation.ConversationManager(this.app)
+    new routes.conversation.SendMessage(this.app)
+    new routes.conversation.GetMessages(this.app)
     
     // If route not exist
     this.app.use((req, res) => {
