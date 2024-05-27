@@ -29,6 +29,16 @@ function initDatabase() {
         nom TEXT UNIQUE
       )
     `);
+    
+    db.run(`
+      CREATE TABLE IF NOT EXISTS conversations (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        utilisateur1_id INTEGER,
+        utilisateur2_id INTEGER,
+        FOREIGN KEY (utilisateur1_id) REFERENCES utilisateurs(id),
+        FOREIGN KEY (utilisateur2_id) REFERENCES utilisateurs(id)
+      )
+    `);
 
     db.run(`
     CREATE TABLE IF NOT EXISTS reservation (
@@ -47,12 +57,19 @@ function initDatabase() {
     // insertStatuts.run("Passager");
     // insertStatuts.run("Conducteur");
     // insertStatuts.finalize();
+    // Table des messages
+    db.run(`
+      CREATE TABLE IF NOT EXISTS messages (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        conversation_id INTEGER,
+        expediteur_id INTEGER,
+        contenu TEXT,
+        date_envoi DATETIME,
+        FOREIGN KEY (conversation_id) REFERENCES conversations(id),
+        FOREIGN KEY (expediteur_id) REFERENCES utilisateurs(id)
+      )
+    `);
 
-    // // Insérer des données factices dans la table des utilisateurs
-    // const insertUtilisateurs = db.prepare("INSERT INTO utilisateurs (nom, prenom, email, identifiant, mot_de_passe, statuts) VALUES (?, ?, ?, ?, ?, ?)");
-    // insertUtilisateurs.run("Doe", "John", "john@example.com", "John123", "motdepasse123", 1); // Utilisateur avec le statut "Passager"
-    // insertUtilisateurs.run("Smith", "Jane", "jane@example.com", "Jane123", "mdp456", 2); // Utilisateur avec le statut "Conducteur"
-    // insertUtilisateurs.finalize();
   });
 }
 
