@@ -11,3 +11,39 @@
 
   </ion-toolbar>
 </ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Options de filtrage -->
+
+
+
+
+  <ion-list class="center">
+    <ion-card *ngFor="let item of allReservation; let index" class="cardProfil">
+      <div class="ProfileCovoite">
+        <ion-card-header>
+          <div class="covoiteProfil">
+          <ion-item lines="none" class="covoiteProfil custom-item">
+            <div class="profil">
+              <ion-thumbnail slot="start" class="">
+                <img alt="avatar" src={{avatarUrl}} />
+              </ion-thumbnail>
+              <ion-label class="labelProfil"> {{item["dateReservation"]}} </ion-label>
+              <ion-label class="labelProfil"> {{item["heureReservation"]}}H </ion-label>
+
+            </div>
+ 
+
+          </ion-item>
+          <div>
+            <ion-label class="labelProfil"> RDV avec </ion-label>
+          </div>
+          </div>
+
+          <ion-card-title></ion-card-title>
+        </ion-card-header>
+      </div>
+    </ion-card>
+  </ion-list>
+
+</ion-content>

@@ -20,6 +20,10 @@ const routes: Routes = [
         loadChildren: () => import('../my-account/my-account.module').then(m => m.MyAccountPageModule)
       },
       {
+        path: 'tab-reservation',
+        loadChildren: () => import('../reservation/reservation.module').then(m => m.ReservationPageModule)
+      },
+      {
         path: '',
         redirectTo: 'tab1',
         pathMatch: 'full'

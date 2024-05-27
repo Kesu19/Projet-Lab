@@ -34,6 +34,7 @@ module.exports = class Server {
 	  new routes.login.Login(this.app)
 	  new routes.login.CreateUser(this.app)
     new routes.get.GetUser(this.app)
+    new routes.reservation.Reservaton(this.app)
     
     
     // If route not exist

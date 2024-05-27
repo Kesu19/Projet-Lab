@@ -16,6 +16,5 @@ export class Tab3Page {
   accessibiliteReducedMobility: boolean = false;
 
   enregistrerPreferences() {
-    console.log('Préférences enregistrées !', this.estFumeur, this.genrePassagers, this.agePassagers, this.animauxAutorises, this.conversationsAutorisees);
   }
 }

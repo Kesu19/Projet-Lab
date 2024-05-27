@@ -20,7 +20,6 @@ export class MyAccountPage implements OnInit {
     this.userName = this.userConnect.getUtilisateurConnecte().identifiant;
     this.email = this.userConnect.getUtilisateurConnecte().email;
     this.tel = this.userConnect.getUtilisateurConnecte().tel;
-    console.log(this.userName)
   }
 
   isEditing: boolean = false;
@@ -70,7 +69,6 @@ export class MyAccountPage implements OnInit {
           text: 'Change',
           handler: (data) => {
             if (data.newPassword !== data.confirmPassword) {
-              console.log('Le nouveau mot de passe et la confirmation ne correspondent pas');
               return Promise.resolve(false); 
             }
           

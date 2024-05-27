@@ -28,7 +28,6 @@ module.exports = class Login {
                     } else {
                         // Comparez le mot de passe fourni avec celui de la base de données
                         if (user.mot_de_passe !== req.query.mdp) {
-							console.log(user.mot_de_passe ,req.query.mdp)
                             return res.status(401).json({ message: "The identifiant and MDP doesn't match" });
                         } else {
                             return res.send(user);

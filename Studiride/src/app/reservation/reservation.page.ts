@@ -14,9 +14,9 @@ export class ReservationPage implements OnInit {
   constructor(private userConnect : UserConnect,private router : Router, private getUserService: GetUserService, private reservationService: ReservationService) {}
   userName = '';
   allReservation = []
+  avatarUrl: string = 'https://www.w3schools.com/howto/img_avatar.png';
   ngOnInit(): void {
     this.userName = this.userConnect.getUtilisateurConnecte().identifiant;
-    console.log(this.userConnect.getUtilisateurConnecte());
     this.reservationService.getAllReservation(this.userConnect.getUtilisateurConnecte().id).then((data: any) => {
       if (data) {
         this.allReservation = data
@@ -33,4 +33,14 @@ export class ReservationPage implements OnInit {
     this.userConnect.deconnecter()
     this.router.navigate(['/login']);
   }
+  // getUser(item : any) {
+
+  //     const userId = this.userConnect.getUtilisateurConnecte().id === item["idConducteur"]
+  //       ? item["idPassager"]
+  //       : item["idConducteur"];
+
+  //     this.getUserService.getUserById(userId).subscribe((user) => {
+  //       return user.identifiant;
+  //     })
+  // }
 }

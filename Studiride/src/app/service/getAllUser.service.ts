@@ -25,4 +25,19 @@ export class GetUserService {
 
     return users;
   }
+
+  async getUserById(id: number) {
+    const url = environment.apiUrl + 'getUserById?id=' + id;
+    
+    const response = await CapacitorHttp['get']({ 
+      url: url,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const users: UserModal = response.data
+
+    return users;
+  }
 }

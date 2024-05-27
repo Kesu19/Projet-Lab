@@ -29,9 +29,10 @@
   </ion-toolbar>
   <ion-item *ngIf="showFilters">
     <div class="filter">
-      <a class="labelBar">Distance maximale: {{ selectedDistance }} km :</a>
+      <a class="labelBar">Distance maximale en km:</a>
       <div class="bar">
-        <ion-range [value]="selectedDistance" min="1" max="300" step="1"
+        <ion-range [value]="selectedDistance" min="1" max="300" step="1"   [pin]="true"
+        [ticks]="true"
           (ionChange)="onDistanceChange($event)"></ion-range>
       </div>
 
@@ -41,8 +42,8 @@
 
 
 
-  <ion-list>
-    <ion-card *ngFor="let item of items; let index">
+  <ion-list class="center">
+    <ion-card *ngFor="let item of items; let index" class="cardProfil">
       <div class="ProfileCovoite">
         <ion-card-header>
           <div class="covoiteProfil">
@@ -62,7 +63,7 @@
 
         <ion-card-content>
           <div class="button-container">
-            <ion-button class="buttonConnexion custom-color" color="buttonbleu" [id]="'present-reserve-alert-' + index">
+            <ion-button class="buttonConnexion custom-color" color="buttonbleu"   (click)="reserver(item.id)">
               <ion-icon class="icon" name="card"></ion-icon>
               Reserver
             </ion-button>

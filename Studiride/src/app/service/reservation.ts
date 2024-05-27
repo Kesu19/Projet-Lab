@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { environment } from 'src/environments/environment';
-import { UserModal } from '../models/UserModel';
 
 const { CapacitorHttp } = Plugins;
 
@@ -12,7 +11,7 @@ export class ReservationService {
   constructor() { }
 
   async getAllReservation(idUser: number): Promise<any> {
-    const url = environment.apiUrl + 'getUser?statuts=' + idUser;
+    const url = environment.apiUrl + 'getALLReservation?idUser=' + idUser;
     
     const response = await CapacitorHttp['get']({ 
       url: url,
@@ -27,28 +26,21 @@ export class ReservationService {
   }
 
 
-  async createUser(): Promise<any> {
-    const url = environment.apiUrl + 'signup';
+  async createReservation(idConducteur: number, idPassager: number): Promise<any> {
+    const url = environment.apiUrl + 'addReservation';
     const headers = {
       'Content-Type': 'application/json'
     };
 
-    const userData = {
-      nom,
-      prenom,
-      email,
-      tel,
-      identifiant,
-      motDePasse,
-      statut,
-      longitude,
-      latitude
+    const reservationData = {
+      idConducteur,
+      idPassager
     };
 
     const response = await CapacitorHttp['post']({
       url: url,
       headers: headers,
-      data: userData
+      data: reservationData
     });
 
     return response.data;

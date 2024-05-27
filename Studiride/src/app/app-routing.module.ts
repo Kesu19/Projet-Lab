@@ -16,7 +16,11 @@ const routes: Routes = [
   {
     path: 'tab-map',
     loadChildren: () => import('./tab2/tab2.module').then( m => m.Tab2PageModule)
+  },  {
+    path: 'reservation',
+    loadChildren: () => import('./reservation/reservation.module').then( m => m.ReservationPageModule)
   }
+
 ];
 @NgModule({
   imports: [

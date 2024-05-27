@@ -3,6 +3,7 @@ import { UserConnect } from '../service/userConnect';
 import { Router } from '@angular/router';
 import { GetUserService } from '../service/getAllUser.service';
 import { UserModal } from '../models/UserModel';
+import { ReservationService } from '../service/reservation';
 
 @Component({
   selector: 'app-tab1',
@@ -16,7 +17,7 @@ export class Tab1Page implements OnInit {
   showFilters: boolean = false;
   radius: number = 10;
   
-  constructor(private userConnect : UserConnect,private router : Router, private getUserService: GetUserService) {}
+  constructor(private userConnect : UserConnect,private router : Router, private getUserService: GetUserService,private reservationService : ReservationService) {}
 
   userName = '';
   public alertButtons = [
@@ -36,11 +37,9 @@ export class Tab1Page implements OnInit {
 
   ngOnInit(): void {
     this.userName = this.userConnect.getUtilisateurConnecte().identifiant;
-    console.log(this.userConnect.getUtilisateurConnecte());
     
     this.getUserService.getAllUser(this.userConnect.getUtilisateurConnecte().statuts)
       .then((data: UserModal[]) => {
-        console.log(data, this.userConnect.getUtilisateurConnecte().status);
         for (const user of data) {
           this.items.push(user);
         }
@@ -69,7 +68,6 @@ export class Tab1Page implements OnInit {
 
 
   sendMessage() {
-    console.log("Send a message to covoiturage with index:");
   }
 
   desconnect(){
@@ -103,7 +101,6 @@ export class Tab1Page implements OnInit {
     this.items = []
     this.getUserService.getAllUser(this.userConnect.getUtilisateurConnecte().statuts)
       .then((data: UserModal[]) => {
-        console.log(data, this.userConnect.getUtilisateurConnecte().status);
         for (const user of data) {
           this.items.push(user);
         }
@@ -115,5 +112,18 @@ export class Tab1Page implements OnInit {
 
   checkInmap(userInfoMap: UserModal){
     this.router.navigate(['/tab-map'], { state: { utilisateur: userInfoMap } });
+  }
+  reserver(id: number){
+    let idConducteur;
+    let idPassager
+    if(this.userConnect.getUtilisateurConnecte().statuts == 1){
+      idConducteur = this.userConnect.getUtilisateurConnecte().id
+      idPassager = id
+    }
+    else{
+      idConducteur = id
+      idPassager = this.userConnect.getUtilisateurConnecte().id
+    }
+    this.reservationService.createReservation(idConducteur,idPassager)
   }
 }
